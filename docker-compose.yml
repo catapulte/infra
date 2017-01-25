@@ -1,11 +1,22 @@
 version: "2"
 
 services:
+
   rabbitmq:
     build: rabbitmq
     image: catapulte/rabbitmq
-    environment:
-    - "RABBITMQ_DEFAULT_PASS=Lolcat000"
     ports:
     - 80:15672
     - 1883:1882
+    networks:
+    - default
+    mem_limit: 100000000
+
+  simple-api:
+    build: simple-api
+    image: catapule/simple-api
+    ports:
+    - 8080:8080
+    networks:
+    - default
+    mem_limit: 800000000
