@@ -1,0 +1,8 @@
+version: "2"
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+    - 80:15672
+    - 1883:1882
