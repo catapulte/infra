@@ -1,3 +1,3 @@
 # infra
 
-docker-compose file to set up the infrastructure
+docker-compose file and ansible playbook to set up the infrastructure

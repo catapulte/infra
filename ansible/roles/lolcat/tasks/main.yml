@@ -1,0 +1,37 @@
+- name: create lolcat user
+  user: name=lolcat
+        state=present
+
+- file: path=/home/lolcat/.ssh
+        state=directory
+        mode=0700
+        owner=lolcat
+        group=lolcat
+
+- name: add authorized keys
+  authorized_key: user=lolcat
+                  key={{ item }}
+                  state=present
+  with_file:
+    - deploy_key.pub
+
+- name: install api systemd units
+  copy: src={{ item }} dest=/etc/systemd/system/{{ item }}
+  with_items:
+  - simple-api.service
+  - simple-api-update.service
+  - simple-api-update.path
+  - catinder-api.service
+  - catinder-api-update.service
+  - catinder-api-update.path
+  register: units
+
+- name: reload systemd units
+  command: systemctl daemon-reload
+  when: units.changed
+
+- name: enable api services update monitors
+  service: name={{ item }} enabled=yes
+  with_items:
+  - simple-api-update.path
+  - catinder-api-update.path

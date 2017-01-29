@@ -1,0 +1,5 @@
+[Unit]
+Description=catinder-api restart on update
+
+[Service]
+ExecStart=/bin/systemctl restart catinder-api

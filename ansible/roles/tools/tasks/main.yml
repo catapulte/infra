@@ -1,0 +1,7 @@
+- name: install system tools
+  package: name={{ item }} state=present
+  with_items:
+  - vim
+  - wget
+  - git
+  - java-1.8.0-openjdk

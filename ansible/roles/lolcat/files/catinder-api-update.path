@@ -1,0 +1,5 @@
+[Path]
+PathChanged=/home/lolcat/catinder-api.jar
+
+[Install]
+WantedBy=multi.user.target

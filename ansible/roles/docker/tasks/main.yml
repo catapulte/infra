@@ -1,0 +1,25 @@
+- name: remove unofficial docker
+  package: name=docker state=absent
+
+- name: add docker repository
+  yum_repository:
+    name: docker
+    description: docker stable repo
+    baseurl: https://yum.dockerproject.org/repo/main/centos/7/
+    gpgcheck: yes
+    gpgkey: https://yum.dockerproject.org/gpg
+
+- name: install docker
+  package: name=docker-engine state=present
+
+- name: enable docker service
+  service: name=docker state=started enabled=yes
+
+- name: install docker-compose
+  get_url: url=https://github.com/docker/compose/releases/download/1.10.0/docker-compose-Linux-x86_64
+           dest=/usr/local/bin/docker-compose
+           checksum=sha256:a4ddff871c67d16cc0b0de9f1c90d5a419dd95515076e5a66493c695beb30b50
+
+- name: make docker-compose executable
+  file: path=/usr/local/bin/docker-compose
+        mode=0755

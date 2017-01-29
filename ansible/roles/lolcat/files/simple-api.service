@@ -1,0 +1,11 @@
+[Unit]
+Description=simple-api
+After=syslog.target
+
+[Service]
+User=lolcat
+ExecStart=/usr/bin/java -jar /home/lolcat/simple-api.jar --server.port=8080
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
