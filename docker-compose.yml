@@ -2,42 +2,6 @@ version: "3"
 
 services:
 
-  simple-api:
-    build: simple-api
-    image: catapulte/simple-api
-    environment:
-    - "mongo.host=mongodb"
-    - "amqp.host=rabbitmq"
-    ports:
-    - 8080:8080
-    depends_on:
-    - rabbitmq
-    - mongodb
-
-  simple-front:
-    build: simple-front
-    image: catapulte/simple-front
-    ports:
-    - 8081:80
-    depends_on:
-    - simple-api
-
-  catinder-api:
-    build: catinder-api
-    image: catapulte/catinder-api
-    ports:
-    - 8090:8080
-    depends_on:
-    - mongodb
-
-  catinder-front:
-    build: catinder-front
-    image: catapulte/catinder-front
-    ports:
-    - 8091:80
-    depends_on:
-    - catinder-api
-
   rabbitmq:
     build: rabbitmq
     image: catapulte/rabbitmq
