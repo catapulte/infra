@@ -1,22 +1,66 @@
-version: "2"
+version: "3"
 
 services:
+
+  simple-api:
+    build: simple-api
+    image: catapulte/simple-api
+    environment:
+    - "mongo.host=mongodb"
+    - "amqp.host=rabbitmq"
+    ports:
+    - 8080:8080
+    depends_on:
+    - rabbitmq
+    - mongodb
+
+  simple-front:
+    build: simple-front
+    image: catapulte/simple-front
+    ports:
+    - 8081:80
+    depends_on:
+    - simple-api
+
+  catinder-api:
+    build: catinder-api
+    image: catapulte/catinder-api
+    ports:
+    - 8090:8080
+    depends_on:
+    - mongodb
+
+  catinder-front:
+    build: catinder-front
+    image: catapulte/catinder-front
+    ports:
+    - 8091:80
+    depends_on:
+    - catinder-api
 
   rabbitmq:
     build: rabbitmq
     image: catapulte/rabbitmq
+    environment:
+    - "RABBITMQ_DEFAULT_USER=guest"
+    - "RABBITMQ_DEFAULT_PASSWORD=guest"
     ports:
-    - 80:15672
-    - 1883:1882
-    networks:
-    - default
-    mem_limit: 100000000
+    - 1883:1883
+    - 5672:5672
+    - 15672:15672
 
-  simple-api:
-    build: simple-api
-    image: catapule/simple-api
+  mongodb:
+    build: mongodb
+    image: catapulte/mongodb
+    environment:
+    - "MONGODB_USER=guest"
+    - "MONGODB_PASS=guest"
+    - "MONGODB_DATABASE=cat"
     ports:
-    - 8080:8080
-    networks:
-    - default
-    mem_limit: 800000000
+    - 27017:27017
+    volumes:
+    - mongodata:/data/db
+
+volumes:
+  mongodata:
+    driver: local
