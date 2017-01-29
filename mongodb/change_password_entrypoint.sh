@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
+if [ ! -f /.password ] ; then
 mongod &
 MONGO_PID=$!
 
@@ -15,6 +16,8 @@ while [[ RET -ne 0 ]]; do
     mongo admin --eval "help" >/dev/null 2>&1
     RET=$?
 done
+
+touch /.password
 
 echo "=> Creating a ${USER} user with a password in MongoDB"
 mongo admin --eval "db.createUser({user: '$USER', pwd: '$PASS', roles:[{role:'root',db:'admin'}]});"
@@ -31,6 +34,9 @@ kill -15 $MONGO_PID
 wait $MONGO_PID
 
 echo "=> Passwords set"
+
+fi
+
 echo "=> Starting mongodb"
 
 /entrypoint.sh "$@"
