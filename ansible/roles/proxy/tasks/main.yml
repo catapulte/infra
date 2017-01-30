@@ -1,0 +1,21 @@
+- name: install traefik
+  get_url: url=https://github.com/containous/traefik/releases/download/v1.1.2/traefik_linux-amd64
+           dest=/usr/local/bin/traefik
+           mode=0755
+           checksum=sha256:680480a281883af90c2c8b12124b9dc6e8f895af67b2e93f22a98386eb6f44ed.
+
+- name: configure traefik
+  copy: src=traefik.toml dest=/etc/traefik.toml
+
+- name: add traefik systemd unit
+  copy: src=traefik.service dest=/etc/systemd/system/traefik.service
+  register: unit
+
+- name: reload systemd units
+  command: systemctl daemon-reload
+  when: unit.changed
+
+- name: enable traefik
+  service: name=traefik state=started enabled=yes
+
+
