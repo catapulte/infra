@@ -24,7 +24,7 @@ onHostRule = false
 
 [[acme.domains]]
    main = "lolcat.passoire.net"
-   sans = ["simple.lolcat.passoire.net", "catinder.lolcat.passoire.net"]
+   sans = ["simple.lolcat.passoire.net", "catinder.lolcat.passoire.net", "rabbitmq.lolcat.passoire.net"]
 
 [file]
 
@@ -35,13 +35,20 @@ onHostRule = false
   [backends.catinderapi]
     [backends.catinderapi.servers.server1]
     url = "http://localhost:8082"
+  [backends.rabbitmq]
+    [backends.rabbitmq.servers.server1]
+    url = "http://localhost:15672"
 
 [frontends]
   [frontends.simpleapi]
   backend = "simpleapi"
-    [frontends.simpleapi.routes.test_1]
+    [frontends.simpleapi.routes.route_1]
     rule = "Host:simple.lolcat.passoire.net"
   [frontends.catinderapi]
   backend = "catinderapi"
-    [frontends.catinderapi.routes.test_1]
+    [frontends.catinderapi.routes.route_1]
     rule = "Host:catinder.lolcat.passoire.net"
+  [frontends.rabbitmq]
+  backend = "rabbitmq"
+    [frontends.rabbitmq.routes.route_1]
+    rule = "Host:rabbitmq.lolcat.passoire.net"

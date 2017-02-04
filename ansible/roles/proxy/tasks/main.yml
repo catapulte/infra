@@ -6,6 +6,7 @@
 
 - name: configure traefik
   copy: src=traefik.toml dest=/etc/traefik.toml
+  notify: restart traefik
 
 - name: add traefik systemd unit
   copy: src=traefik.service dest=/etc/systemd/system/traefik.service
