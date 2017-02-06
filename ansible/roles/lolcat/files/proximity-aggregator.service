@@ -1,0 +1,11 @@
+[Unit]
+Description=proximity-aggregator
+After=syslog.target
+
+[Service]
+User=lolcat
+ExecStart=/usr/bin/java -jar /home/lolcat/proximity-aggregator.jar --server.address=127.0.0.1 --server.port=8083
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target

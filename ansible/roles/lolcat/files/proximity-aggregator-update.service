@@ -1,0 +1,5 @@
+[Unit]
+Description=proximity-aggregator restart on update
+
+[Service]
+ExecStart=/bin/systemctl restart proximity-aggregator

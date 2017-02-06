@@ -24,6 +24,9 @@
   - catinder-api.service
   - catinder-api-update.service
   - catinder-api-update.path
+  - proximity-aggregator.service
+  - proximity-aggregator-update.service
+  - proximity-aggregator-update.path
   register: units
 
 - name: reload systemd units
@@ -35,3 +38,4 @@
   with_items:
   - simple-api-update.path
   - catinder-api-update.path
+  - proximity-aggregator.path
