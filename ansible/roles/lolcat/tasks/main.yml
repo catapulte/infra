@@ -27,6 +27,7 @@
   - proximity-aggregator.service
   - proximity-aggregator-update.service
   - proximity-aggregator-update.path
+  - lolcat-docker-backend.service
   register: units
 
 - name: reload systemd units
@@ -38,4 +39,7 @@
   with_items:
   - simple-api-update.path
   - catinder-api-update.path
-  - proximity-aggregator.path
+  - proximity-aggregator-update.path
+
+- name: start docker backend
+  service: name=lolcat-docker-backend state=started enabled=yes
