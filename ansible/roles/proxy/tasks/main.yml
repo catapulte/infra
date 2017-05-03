@@ -19,4 +19,9 @@
 - name: enable traefik
   service: name=traefik state=started enabled=yes
 
-
+- name: open HTTP traffic
+  firewalld: service={{ item }} permanent=true state=enabled zone=public
+  with_items:
+  - http
+  - https
+  notify: reload firewalld

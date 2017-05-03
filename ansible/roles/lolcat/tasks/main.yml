@@ -37,9 +37,20 @@
 - name: enable api services update monitors
   service: name={{ item }} enabled=yes
   with_items:
+  - simple-api
   - simple-api-update.path
+  - catinder-api
   - catinder-api-update.path
+  - proximity-aggregator
   - proximity-aggregator-update.path
 
-- name: start docker backend
-  service: name=lolcat-docker-backend state=started enabled=yes
+- name: clone docker backend compose file
+  unarchive: src=https://github.com/catapulte/infra/archive/master.tar.gz dest=/home/lolcat remote_src=True
+
+- name: start lolcat services
+  service: name={{ item }} state=started enabled=yes
+  with_items:
+  - lolcat-docker-backend
+  - simple-api
+  - catinder-api
+  - proximity-aggregator

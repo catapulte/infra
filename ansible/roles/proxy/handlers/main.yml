@@ -1,2 +1,5 @@
 - name: restart traefik
   service: name=traefik state=restarted
+
+- name: reload firewalld
+  service: name=firewalld state=reloaded

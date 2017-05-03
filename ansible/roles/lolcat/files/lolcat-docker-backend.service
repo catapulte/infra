@@ -4,9 +4,9 @@ After=docker.service
 Requires=docker.service
 
 [Service]
-ExecStartPre=-/usr/local/bin/docker-compose -f /home/lolcat/infra/docker/docker-compose.yml -p lolcat down
-ExecStart=/usr/local/bin/docker-compose -f /home/lolcat/infra/docker/docker-compose.yml up -p lolcat -d
-ExecStop=/usr/local/bin/docker-compose -f /home/lolcat/infra/docker/docker-compose.yml -p lolcat stop
+ExecStartPre=-/usr/local/bin/docker-compose -f /home/lolcat/infra-master/docker/docker-compose.yml -p lolcat down
+ExecStart=/usr/local/bin/docker-compose -f /home/lolcat/infra-master/docker/docker-compose.yml -p lolcat up
+ExecStop=/usr/local/bin/docker-compose -f /home/lolcat/infra-master/docker/docker-compose.yml -p lolcat stop
 
 [Install]
 WantedBy=multi-user.target
