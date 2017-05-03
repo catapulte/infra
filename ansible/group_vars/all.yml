@@ -1,0 +1,6 @@
+rabbitmq_user: lolcat
+rabbitmq_pass: lolcat
+
+mongo_user: lolcat
+mongo_pass: lolcat
+

@@ -15,6 +15,12 @@
   with_file:
     - deploy_key.pub
 
+- name: configure apps
+  template: src=application.yml
+            dest=/home/lolcat/application.yml
+            owner=lolcat
+            group=lolcat
+
 - name: install api systemd units
   copy: src={{ item }} dest=/etc/systemd/system/{{ item }}
   with_items:

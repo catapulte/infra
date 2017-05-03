@@ -4,6 +4,7 @@ After=syslog.target
 
 [Service]
 User=lolcat
+WorkingDirectory=/home/lolcat
 ExecStart=/usr/bin/java -jar /home/lolcat/catinder-api.jar --server.address=127.0.0.1 --server.port=8082
 SuccessExitStatus=143
 

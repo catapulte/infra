@@ -1,0 +1,10 @@
+rabbitmq:
+  user: {{ rabbitmq_user }}
+  pass: {{ rabbitmq_pass }}
+amqp:
+  user: {{ rabbitmq_user }}
+  pass: {{ rabbitmq_pass }}
+
+mongo:
+  user: {{ mongo_user }}
+  pass: {{ mongo_pass }}
