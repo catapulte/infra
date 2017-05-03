@@ -6,8 +6,8 @@ services:
     build: rabbitmq
     image: catapulte/rabbitmq
     environment:
-    - "RABBITMQ_DEFAULT_USER=guest"
-    - "RABBITMQ_DEFAULT_PASSWORD=guest"
+    - "RABBITMQ_USER=lolcat"
+    - "RABBITMQ_PASSWORD=lolcat"
     ports:
     - 1883:1883
     - 5672:5672

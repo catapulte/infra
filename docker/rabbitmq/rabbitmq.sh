@@ -17,4 +17,11 @@ rabbitmqadmin declare queue name=cat.moves durable=true
 rabbitmqadmin declare queue name=cat.crosspath durable=true
 rabbitmqadmin declare binding source=amq.topic destination=cat.data routing_key=cat.data destination_type=queue
 
+user=${RABBITMQ_USER:guest}
+pass=${RABBITMQ_PASSWORD:guest}
+
+rabbitmqctl add_user $user $pass
+rabbitmqctl set_permissions $user '.*' '.*' '.*'
+rabbitmqctl set_user_tags $user administrator
+
 wait
