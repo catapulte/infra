@@ -17,8 +17,8 @@ services:
     build: mongodb
     image: catapulte/mongodb
     environment:
-    - "MONGODB_USER=guest"
-    - "MONGODB_PASS=guest"
+    - "MONGODB_USER=lolcat"
+    - "MONGODB_PASS=lolcat"
     - "MONGODB_DATABASE=cat"
     ports:
     - 27017:27017
