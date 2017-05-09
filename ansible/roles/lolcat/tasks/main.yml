@@ -13,7 +13,8 @@
                   key={{ item }}
                   state=present
   with_file:
-    - deploy_key.pub
+  - deploy_key.pub
+  - deploy_key2.pub
 
 - name: configure apps
   template: src=application.yml
