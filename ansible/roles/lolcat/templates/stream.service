@@ -1,0 +1,12 @@
+[Unit]
+Description=stream
+After=syslog.target
+
+[Service]
+User=lolcat
+WorkingDirectory=/home/lolcat
+ExecStart=/usr/bin/java -Drabbitmq.user={{ rabbitmq_user }} -Drabbitmq.pass={{ rabbitmq_pass }} -Dmongo.user={{ mongo_user }} -Dmongo.pass={{ mongo_pass }} -jar /home/lolcat/stream.jar
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target

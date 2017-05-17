@@ -1,0 +1,5 @@
+[Unit]
+Description=simple-api restart on update
+
+[Service]
+ExecStart=/bin/systemctl restart simple-api

@@ -1,0 +1,13 @@
+[Unit]
+Description=flink
+After=syslog.target
+
+[Service]
+User=lolcat
+WorkingDirectory=/home/lolcat
+RemainAfterExit=yes
+ExecStart=/home/lolcat/flink-1.2.1/bin/start-local.sh
+ExecStop=/home/lolcat/flink-1.2.1/bin/stop-local.sh
+
+[Install]
+WantedBy=multi-user.target

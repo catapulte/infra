@@ -17,10 +17,13 @@
   - deploy_key2.pub
 
 - name: configure apps
-  template: src=application.yml
-            dest=/home/lolcat/application.yml
+  template: src={{ item }}
+            dest=/home/lolcat/{{ item }}
             owner=lolcat
             group=lolcat
+  with_items:
+  - application.yml
+  - stream.properties
 
 - name: install api systemd units
   copy: src={{ item }} dest=/etc/systemd/system/{{ item }}
@@ -35,11 +38,7 @@
   - proximity-aggregator-update.service
   - proximity-aggregator-update.path
   - lolcat-docker-backend.service
-  register: units
-
-- name: reload systemd units
-  command: systemctl daemon-reload
-  when: units.changed
+  notify: reload systemd units
 
 - name: enable api services update monitors
   service: name={{ item }} enabled=yes
@@ -50,6 +49,8 @@
   - catinder-api-update.path
   - proximity-aggregator
   - proximity-aggregator-update.path
+  - stream
+  - stream-update.path
 
 - name: clone docker backend compose file
   unarchive: src=https://github.com/catapulte/infra/archive/master.tar.gz dest=/home/lolcat remote_src=True
@@ -61,3 +62,5 @@
   - simple-api
   - catinder-api
   - proximity-aggregator
+
+- include: flink.yml

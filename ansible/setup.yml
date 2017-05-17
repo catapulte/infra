@@ -2,6 +2,7 @@
   user: root
 
   roles:
+  - common
   - tools
   - docker
   - lolcat

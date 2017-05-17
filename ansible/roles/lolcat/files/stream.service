@@ -1,0 +1,11 @@
+[Unit]
+Description=stream
+After=syslog.target
+
+[Service]
+User=lolcat
+WorkingDirectory=/home/lolcat
+ExecStart=/home/lolcat/flink-1.2.1/bin/flink run /home/lolcat/stream.jar
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,26 @@
+- name: download flink
+  get_url: url=http://mirrors.ircam.fr/pub/apache/flink/flink-1.2.1/flink-1.2.1-bin-hadoop27-scala_2.11.tgz
+           dest=/home/lolcat
+           owner=flink
+           checksum=sha256:903dfdb0141c141d120a28653666cf9cbd8d86cd3bcc7540a058fae03aeccd90
+  register: flinkpkgs
+
+- name: unpack flink
+  unarchive: src=/home/lolcat/flink-1.2.1-bin-hadoop27-scala_2.11.tgz
+             dest=/home/lolcat
+             copy=no
+  when: flinkpkgs.changed
+
+- name: install systemd unit
+  copy: src={{ item }}
+        dest=/etc/systemd/system/{{ item }}
+  with_items:
+  - flink.service
+  - stream.service
+  - stream-update.path
+  - stream-update.service
+  notify: reload systemd units
+
+- name: enable flink service
+  service: name=flink state=started enabled=yes
+
